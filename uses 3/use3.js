@@ -1,32 +1,24 @@
-class itemBasket {
-    constructor(item, qty, price, tax) {
-        this.item = item;              
-        this.qty = qty;       
-        this.price = price; 
-        this.tax = tax;     
+class Content {
+    constructor(type, title, text, breaking = false) {
+      this.title = breaking && type === "breaking" ? "BREAKING: " + title : title;
+      this.text = type === "ad" ? text.toUpperCase() : text;
+      this.text = type === "vacancy" ? text + " - apply now!" : this.text;
     }
-
-    soldes = 0.5;  
-
-    percentOff() {
-        return this.price * (1 - this.soldes);
+  
+    displayContent() {
+      console.log(`Title: ${this.title}`);
+      console.log(`Text: ${this.text}`);
     }
-
-    totalBasket() {
-        return this.qty * this.percentOff();
-    } 
-
-    taxCost() {
-        return this.totalBasket() * this.tax;
-    }
-}
-
-const bananas = new itemBasket("Bananas", 6, 1.0, 0.06);
-const apples = new itemBasket("Apples", 3, 1.5, 0.06);
-const wine = new itemBasket("Wine", 2, 10.0, 0.21);
-
-const totalCost = bananas.totalBasket() + apples.totalBasket() + wine.totalBasket();
-const totalTax = bananas.taxCost() + apples.taxCost() + wine.taxCost();
-
-console.log('Total cost: ' + totalCost.toFixed(2) + '€');
-console.log('Total tax: ' + totalTax.toFixed(2) + '€');
+  }
+  
+  // Utilisation pour différents types de contenu
+  let article1 = new Content("breaking", "Ceci est le premier article", "Ceci est le texte du premier article", true);
+  let article2 = new Content("breaking", "Ceci est le second article", "Ceci est le texte du second article");
+  let ad1 = new Content("ad", "Ceci est une pub", "Ceci est le texte de la pub");
+  let vacancy1 = new Content("vacancy", "Ceci est le titre du poste vacant", "Ceci est le texte du poste vacant");
+  
+  // Affichage
+  article1.displayContent();
+  article2.displayContent();
+  ad1.displayContent();
+  vacancy1.displayContent();
